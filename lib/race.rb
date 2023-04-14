@@ -1,10 +1,12 @@
 class Race
   attr_reader :office, 
-              :candidates
+              :candidates, 
+              :openness
   
   def initialize(office)
     @office = office
     @candidates = []
+    @openness = true
   end
 
   def register_candidate!(candidate)
@@ -13,5 +15,13 @@ class Race
       party: candidate[:party]
     })
     new_candidate
+  end
+
+  def open?
+    @openness
+  end
+
+  def close!
+    @openness = false
   end
 end
