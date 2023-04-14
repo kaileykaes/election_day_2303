@@ -19,4 +19,12 @@ class Election
     end
     candidates
   end
+
+  def vote_counts 
+    votes_by_candidate = Hash.new(0)
+    candidates.map do |candidate|
+      votes_by_candidate[candidate.name] += candidate.votes 
+    end
+    votes_by_candidate
+  end
 end

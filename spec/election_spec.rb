@@ -32,12 +32,16 @@ RSpec.describe Election do
 
   describe 'election candidates' do 
     it '#candidates' do 
+      @election.add_race(@race_1)
+      @election.add_race(@race_2)
       expect(@election.candidates).to eq([@candidate1_tx, @candidate2_tx, @candidate1_co, @candidate2_co])
     end
   end
 
   describe 'election counts votes by candidate' do 
     it '#vote_counts' do 
+      @election.add_race(@race_1)
+      @election.add_race(@race_2)
       @candidate1_tx.vote_for!
       @candidate1_tx.vote_for!
       @candidate2_tx.vote_for!
@@ -46,7 +50,7 @@ RSpec.describe Election do
       @candidate2_co.vote_for!
       expect(@election.vote_counts).to eq({
         'Diana D' => 2,
-        'Robert R' => 1,
+        'Roberto R' => 1,
         'Sylvester S' => 1,
         'John Jacob Jingleheimer Schmidt' => 2
       })
