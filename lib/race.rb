@@ -33,6 +33,10 @@ class Race
     end
   end
 
+  def tie?
+    win_folks.length > 1
+  end
+
   def win_folks 
     win_person = @candidates.max_by do |candidate| 
       candidate.votes

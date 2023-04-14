@@ -53,7 +53,7 @@ RSpec.describe Race do
       expect(@race.winner).to eq(candidate1)
     end
 
-    it 'if tie multiple most voted candidates' do 
+    it 'if tie any highly voted candidate' do 
       candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
       candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
       candidate3 = @race.register_candidate!({name: 'Sylvester S', party: :libertarian})
@@ -64,6 +64,21 @@ RSpec.describe Race do
       candidate3.vote_for!
       @race.close!
       expect(@race.winner).to eq(candidate1)
+    end
+  end
+  
+  describe 'tie' do 
+    it '#tie' do 
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate3 = @race.register_candidate!({name: 'Sylvester S', party: :libertarian})
+      candidate1.vote_for!
+      candidate1.vote_for!
+      candidate2.vote_for!
+      candidate2.vote_for!
+      candidate3.vote_for!
+      @race.close!
+      expect(@race.tie?).to be true
     end
   end
   
