@@ -91,11 +91,8 @@ RSpec.describe Election do
     it 'no winners are returned for a race if not closed' do 
       @election.add_race(@race_1)
       @election.add_race(@race_2)
-      @candidate1_tx.vote_for!
-      @candidate1_tx.vote_for!
-      @candidate2_tx.vote_for!
-      @candidate1_co.vote_for!
-      @candidate1_co.vote_for!
+      3.times { @candidate1_tx.vote_for! }
+      2.times { @candidate1_co.vote_for! }
       @candidate2_co.vote_for!
       @race_1.close!
       expect(@election.winners).to eq([@candidate1_tx])

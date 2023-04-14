@@ -13,9 +13,7 @@ class Election
 
   def candidates
     candidates = @races.flat_map do |race|
-      race.candidates.find_all do |candidate|
-        candidate
-      end
+      race.candidates
     end
     candidates
   end
