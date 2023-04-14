@@ -37,4 +37,47 @@ RSpec.describe Race do
       expect(@race.open?).to be false
     end
   end
+
+  describe '#winner' do 
+    it 'no winner if race is open' do 
+      expect(@race.winner).to be false
+    end
+
+    it 'candidate with most votes if closed' do 
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate1.vote_for!
+      candidate1.vote_for!
+      candidate2.vote_for!
+      @race.close!
+      expect(@race.winner).to eq(candidate1)
+    end
+
+    it 'if tie multiple most voted candidates' do 
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate3 = @race.register_candidate!({name: 'Sylvester S', party: :libertarian})
+      candidate1.vote_for!
+      candidate1.vote_for!
+      candidate2.vote_for!
+      candidate2.vote_for!
+      candidate3.vote_for!
+      @race.close!
+      expect(@race.winner).to eq(candidate1)
+    end
+  end
+  
+  describe 'helpers' do 
+    it '#win_folks' do 
+      candidate1 = @race.register_candidate!({name: "Diana D", party: :democrat})
+      candidate2 = @race.register_candidate!({name: "Roberto R", party: :republican})
+      candidate3 = @race.register_candidate!({name: 'Sylvester S', party: :libertarian})
+      candidate1.vote_for!
+      candidate1.vote_for!
+      candidate2.vote_for!
+      candidate2.vote_for!
+      candidate3.vote_for!
+      expect(@race.win_folks).to eq([candidate1, candidate2])
+    end
+  end
 end
