@@ -24,4 +24,22 @@ class Race
   def close!
     @openness = false
   end
+
+  def winner
+    if open?
+      false
+    else 
+      win_folks[0]
+    end
+  end
+
+  def win_folks 
+    win_person = @candidates.max_by do |candidate| 
+      candidate.votes
+    end
+    all_win_people = @candidates.select do |candidate|
+      candidate.votes == win_person.votes
+    end
+    all_win_people
+  end
 end
