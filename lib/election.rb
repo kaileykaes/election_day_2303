@@ -27,4 +27,17 @@ class Election
     end
     votes_by_candidate
   end
+
+  def winners 
+    closed_races = @races.select do |race|
+      !race.open?
+    end
+    untied_races = closed_races.select do |race|
+      !race.tie?
+    end
+    the_winners = untied_races.map do |race|
+      race.winner
+    end
+    the_winners
+  end
 end
