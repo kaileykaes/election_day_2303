@@ -26,4 +26,15 @@ RSpec.describe Race do
       expect(@race.candidates).to eq([candidate1, candidate2])
     end
   end
+
+  describe 'race openness' do 
+    it '#open?' do 
+      expect(@race.open?).to be true
+    end
+
+    it '#close!' do 
+      @race.close!
+      expect(@race.open?).to be false
+    end
+  end
 end
